@@ -9,9 +9,9 @@ if [ $virtu = 0 ] ; then echo -e "[Error] ${RED}Virtualization/KVM in your Serve
 else
 #
 # Deleting Previous Windows Installation by the Script
-#umount -l /mnt /media/script /media/sw
-#rm -rf /mediabots /floppy /virtio /media/* /tmp/*
-#rm -f /sw.iso /disk.img 
+umount -l /mnt /media/script /media/sw
+rm -rf /mediabots /floppy /virtio /media/* /tmp/*
+rm -f /sw.iso /disk.img 
 # installing required Ubuntu packages
 dist=$(hostnamectl | egrep "Operating System" | cut -f2 -d":" | cut -f2 -d " ")
 if [ $dist = "CentOS" ] ; then
@@ -32,13 +32,13 @@ fi
 sudo ln -s /usr/bin/genisoimage /usr/bin/mkisofs
 # Downloading resources
 sudo mkdir /mediabots /floppy /virtio
-link1_status=$(curl -Is https://archive.org/download/WS2019_trial/WS2019.iso | grep HTTP | cut -f2 -d" " | head -1)
-link2_status=$(curl -Is https://archive.org/download/WS2019_trial/WS2019.iso | grep HTTP | cut -f2 -d" ")
-#sudo wget -P /mediabots https://archive.org/download/WS2019_trial/WS2019.iso # Windows Server 2019 
+link1_status=$(curl -Is https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x407&culture=de-de&country=DE | grep HTTP | cut -f2 -d" " | head -1)
+link2_status=$(curl -Is https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x407&culture=de-de&country=DE | grep HTTP | cut -f2 -d" ")
+#sudo wget -P /mediabots https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x407&culture=de-de&country=DE # Windows Server 2019 
 if [ $link1_status = "200" ] ; then 
-	sudo wget -O /mediabots/WS2019.ISO https://archive.org/download/WS2019_trial/WS2019.iso 
+	sudo wget -O /mediabots/WS2019.ISO https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x407&culture=de-de&country=DE 
 elif [ $link2_status = "200" -o $link2_status = "301" -o $link2_status = "302" ] ; then 
-	sudo wget -P /mediabots https://archive.org/download/WS2019_trial/WS2019.iso
+	sudo wget -P /mediabots https://go.microsoft.com/fwlink/p/?LinkID=2195167&clcid=0x407&culture=de-de&country=DE
 else
 	echo -e "${RED}[Error]${NC} ${YELLOW}Sorry! None of Windows OS image urls are available , please report about this issue on Github page : ${NC}https://github.com/mediabots/Linux-to-Windows-with-QEMU"
 	echo "Exiting.."
